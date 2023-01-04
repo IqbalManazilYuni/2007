@@ -13,14 +13,22 @@ import id.ac.unand.uas_ptb_2007.models.LogbooksItem
 class LogBookAdapter ()
     :RecyclerView.Adapter<LogBookAdapter.LogbookViewHolder>(){
 
+    private lateinit var logbokLister : onItemClickListener
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+    fun setOnItemClickListener(listener: onItemClickListener){
+        logbokLister = listener
+    }
     var listLogbook : List<LogbooksItem> = ArrayList()
+
     fun setlistLogbook(listLogbook:List<LogbooksItem>){
         this.listLogbook = listLogbook
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogbookViewHolder {
         return  LogbookViewHolder(ItemListbookBinding.inflate(LayoutInflater.from(parent.context)
-            , parent, false))
+            , parent, false),logbokLister)
     }
 
     override fun onBindViewHolder(holder: LogbookViewHolder, position: Int) {
@@ -31,7 +39,12 @@ class LogBookAdapter ()
     override fun getItemCount(): Int {
         return listLogbook.size
     }
-    inner class LogbookViewHolder(val itemBinding:ItemListbookBinding):
+    inner class LogbookViewHolder(val itemBinding:ItemListbookBinding,listener: onItemClickListener):
         RecyclerView.ViewHolder(itemBinding.root) {
+            init {
+                itemView.setOnClickListener{
+                    listener.onItemClick(bindingAdapterPosition)
+                }
+            }
     }
     }

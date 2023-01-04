@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 ////            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
 //        })
         val btnlogin = binding.btnlogin
-
         //cek ada token atau ndak, kalo ada langsung ke MainActivity
         val sharedPref = getSharedPreferences("prefs", Context.MODE_PRIVATE) ?: return
         val ada = sharedPref.getString("token",null)
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         btnlogin.setOnClickListener{
             val username = binding.teksUsername.getText().toString()
             val password = binding.teksPassword.getText().toString()
@@ -87,7 +85,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     Toast.makeText(this@MainActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
-
             })
         }
     }

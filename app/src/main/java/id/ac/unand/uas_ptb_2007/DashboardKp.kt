@@ -65,28 +65,14 @@ class DashboardKp : AppCompatActivity() {
 
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-//        logbookArrayList = ArrayList()
-//
-//        logbookArrayList.add(datalogbook( "Senin", "6 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Selasa",  "7 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Rabu",  "8 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Kamis",  "9 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Jumat",  "10 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Senin",  "11 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Selasa", "12 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Rabu",  "13 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Kamis",  "14 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Jumat",  "15 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Senin",  "16 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Selasa",  "17 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Rabu",  "18 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Kamis",  "19 Oktober 2022"))
-//        logbookArrayList.add(datalogbook( "Jumat",  "20 Oktober 2022"))
-//
-//        adapter = LogBookAdapter(logbookArrayList)
         recyclerView.adapter = adapter
-
+        adapter.setOnItemClickListener(object : LogBookAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(this@DashboardKp,DetailLogbook::class.java)
+//
+                startActivity(intent)
+            }
+        })
 
         val btnlogout = binding.btnlogout
         btnlogout.setOnClickListener {

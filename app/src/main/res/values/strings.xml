@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">UAS_PTB_2007</string>
+    <string name="textlogin">Universitas Andalas</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="teks_dis">Departemen Sistem Informasi</string>
+    <string name="teks3">Portal KP</string>
+    <string name="textview">Departemen Sistem Informasi</string>
+    <string name="nama_dosen">Husnil Kamil</string>
+    <string name="todo">TODO</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="email">Email</string>
+    <string name="value_email"> </string>
+    <string name="nip">NIP</string>
+    <string name="value_nip"> </string>
+</resources>

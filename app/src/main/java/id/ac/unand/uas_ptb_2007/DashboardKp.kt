@@ -35,7 +35,7 @@ class DashboardKp : AppCompatActivity() {
         val sharedPrefToken = getSharedPreferences("sharedpref",Context.MODE_PRIVATE)?:return
         val token = sharedPrefToken.getString("token",null)
         val sharedPref = getSharedPreferences("mahapref",Context.MODE_PRIVATE)?:return
-        val id = sharedPref.getInt("id",5)
+        val id = sharedPref.getInt("id",2)
 
         val data = ArrayList<LogbooksItem>()
         recyclerView = findViewById(R.id.recycler_view)
@@ -50,6 +50,11 @@ class DashboardKp : AppCompatActivity() {
                 response: Response<ListLogBookResponse>
             ) {
                 val respon = response.body()
+                val student_id = respon?.studentId
+                binding.valueNimDetail.text = student_id.toString()
+                val report = respon?.reportTitle
+                binding.valueDosenDetail.text = report.toString()
+
                 if(respon != null){
                     val list : List<LogbooksItem> = respon.logbooks as List<LogbooksItem>
                     adapter.setlistLogbook(list)
@@ -57,6 +62,21 @@ class DashboardKp : AppCompatActivity() {
                 }
                 Log.d("list-book-debug", respon?.logbooks?.size.toString())
                 Log.d("list-book-debug", "respon : " + respon?.logbooks.toString())
+
+                adapter.setOnClickListener(object : LogBookAdapter.onClickListener{
+                    override fun onItemClick(position: Int) {
+                        val position = respon?.logbooks?.get(position)
+                        val sharedPref = getSharedPreferences("logbookpref", MODE_PRIVATE)?:return
+                        with(sharedPref.edit()){
+                            putString("id_logbook",position?.id.toString())
+                            apply()
+                        }
+                        Log.d("Detail-logbook",position.toString())
+                        val intent = Intent(this@DashboardKp,DetailLogbook::class.java)
+//
+                        startActivity(intent)
+                    }
+                })
             }
 
             override fun onFailure(call: Call<ListLogBookResponse>, t: Throwable) {
@@ -66,13 +86,7 @@ class DashboardKp : AppCompatActivity() {
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-        adapter.setOnItemClickListener(object : LogBookAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                val intent = Intent(this@DashboardKp,DetailLogbook::class.java)
-//
-                startActivity(intent)
-            }
-        })
+
 
         val btnlogout = binding.btnlogout
         btnlogout.setOnClickListener {

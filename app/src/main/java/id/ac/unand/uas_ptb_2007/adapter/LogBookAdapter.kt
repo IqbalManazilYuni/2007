@@ -11,13 +11,14 @@ import id.ac.unand.uas_ptb_2007.databinding.ItemListbookBinding
 import id.ac.unand.uas_ptb_2007.models.LogbooksItem
 
 class LogBookAdapter ()
-    :RecyclerView.Adapter<LogBookAdapter.LogbookViewHolder>(){
+    :RecyclerView.Adapter<LogBookAdapter.LogBookViewHolder>(){
 
-    private lateinit var logbokLister : onItemClickListener
-    interface onItemClickListener{
+    private lateinit var logbokLister : onClickListener
+
+    interface onClickListener{
         fun onItemClick(position: Int)
     }
-    fun setOnItemClickListener(listener: onItemClickListener){
+    fun setOnClickListener(listener: onClickListener){
         logbokLister = listener
     }
     var listLogbook : List<LogbooksItem> = ArrayList()
@@ -26,12 +27,12 @@ class LogBookAdapter ()
         this.listLogbook = listLogbook
         notifyDataSetChanged()
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogbookViewHolder {
-        return  LogbookViewHolder(ItemListbookBinding.inflate(LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogBookViewHolder {
+        return  LogBookViewHolder(ItemListbookBinding.inflate(LayoutInflater.from(parent.context)
             , parent, false),logbokLister)
     }
 
-    override fun onBindViewHolder(holder: LogbookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LogBookViewHolder, position: Int) {
         val item : LogbooksItem = listLogbook.get(position)
         holder.itemBinding.kegiatan.text = item.activities
         holder.itemBinding.tanggalLogbook.text = item.date
@@ -39,7 +40,7 @@ class LogBookAdapter ()
     override fun getItemCount(): Int {
         return listLogbook.size
     }
-    inner class LogbookViewHolder(val itemBinding:ItemListbookBinding,listener: onItemClickListener):
+    inner class LogBookViewHolder(val itemBinding:ItemListbookBinding,listener: onClickListener):
         RecyclerView.ViewHolder(itemBinding.root) {
             init {
                 itemView.setOnClickListener{

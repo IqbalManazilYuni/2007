@@ -54,6 +54,8 @@ class DetailLogbook : AppCompatActivity() {
                     Log.d("Detail-logbook-debug-selalu",respon.toString())
                     val report = respon.reportTitle
                     binding.valueDosenDetail.text = report.toString()
+                    val studentid = respon.studentId
+                    binding.valueNimDetail.text = studentid.toString()
                     val tanggal = respon.logbook?.date
                     binding.tanggallogbok.text = tanggal.toString()
                     val kegiatan = respon.logbook?.activities
